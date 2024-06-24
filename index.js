@@ -33,7 +33,7 @@ function writeConfig(data) {
   });
 }
 
-async function modifyConfig() {
+export async function modifyConfig() {
   try {
     const config = await readConfig();
     console.log("Cofiguracion actual");
