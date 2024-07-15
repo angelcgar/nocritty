@@ -1,4 +1,5 @@
-const templeate = `# Importar un tema
+const templeate = `
+# Importar un tema
 import = ["~/.config/alacritty/themes/themes/aura.toml"]
 
 [cursor]

@@ -1,7 +1,8 @@
 import { Answers } from "inquirer";
 
 export function writeConfigTempleate(answers: Answers) {
-  return `# Importar un tema
+  return `
+# Importar un tema
 import = ["~/.config/alacritty/themes/themes/${answers.theme}.toml"]
 
 [cursor]
