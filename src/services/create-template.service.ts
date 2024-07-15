@@ -4,7 +4,7 @@ import { join } from "node:path";
 
 const configFont = join(homedir(), ".config/alacritty/nocritty.txt");
 
-export function getExample() {
+export function getExample(): Promise<void> {
   return new Promise((resolve, reject) => {
     readFile("example.txt", "utf-8", (err, data) => {
       if (err) throw err;

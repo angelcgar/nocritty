@@ -1,5 +1,8 @@
-# Importar un tema
-import = ["~/.config/alacritty/themes/themes/alacritty_0_12.toml"]
+import { Answers } from "inquirer";
+
+export function writeConfigTempleate(answers: Answers) {
+  return `# Importar un tema
+import = ["~/.config/alacritty/themes/themes/${answers.theme}.toml"]
 
 [cursor]
 # Configuración del cursor
@@ -13,7 +16,7 @@ normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
 bold = { family = "UbuntuMono Nerd Font", style = "Bold" }
 italic = { family = "UbuntuMono Nerd Font", style = "Italic" }
 bold_italic = { family = "UbuntuMono Nerd Font", style = "Bold Italic" }
-size = 13
+size = ${answers.font_size}
 
 [[keyboard.bindings]]
 # Configuración de las teclas
@@ -26,7 +29,7 @@ history = 50000
 
 [window]
 # Configuración de la ventana
-opacity = 0.7
+opacity = ${answers.opacity}
 padding = { x = 5, y = 5 }
 decorations = "full"
 decorations_theme_variant = "light"
@@ -35,4 +38,5 @@ decorations_theme_variant = "light"
 
 [mouse]
 # Ocultar el ratón al escribir
-hide_when_typing = true
+hide_when_typing = true`;
+}

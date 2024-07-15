@@ -1,0 +1,33 @@
+[
+  {
+    "type": "input",
+    "name": "font_size",
+    "message": "Nuevo tamaño de fuente:",
+    "default": 12
+  },
+  {
+    "type": "input",
+    "name": "opacity",
+    "message": "Nueva opacidad:",
+    "default": 1
+  },
+  {
+    "type": "list",
+    "name": "theme",
+    "message": "Nueva tema:",
+    "choices": [
+      {
+        "value": "onedark",
+        "name": "One dark pro"
+      },
+      {
+        "value": "alacritty_0_12",
+        "name": "Alacritty"
+      },
+      {
+        "value": "aura",
+        "name": "Aura"
+      }
+    ]
+  }
+]
