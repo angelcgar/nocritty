@@ -2,21 +2,21 @@
   "name": "nocritty",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node src/app.ts -b 7 -s ",
+    "dev:watch": "node --import=tsx --watch src/app.ts -b 10",
     "build": "rimraf ./dist && tsc",
-    "start": "node --import=tsx src/index.ts"
+    "start": "npm run build && node dist/app.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^9.2.23"
+    "yargs": "^17.7.2"
   },
   "devDependencies": {
-    "@types/inquirer": "^9.0.7",
     "@types/node": "^20.14.10",
+    "@types/yargs": "^17.0.32",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "tsx": "^4.16.2",
