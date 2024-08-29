@@ -1,17 +1,23 @@
-Consigue los temas para tu terminal, este comando es para usuarios de linux y es
-lo recomendable para este proyecto
+1. Consigue los temas para tu terminal, este comando es para usuarios de linux y es
+   lo recomendable para este proyecto
 
 ```bash
 mkdir -p ~/.config/alacritty/themes
 git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 ```
 
-Despues corre el programa con **node** 
+2. contrulle el programa
 
 ```bash
-node index.js
+npm run build
 ```
 
-Te preguntara un par de configuraciones para el archivo alacritty.toml que esta 
-en ~/.config/alacritty, hacegurate de tener los temas de alacritty.
+3. Despues corre el programa con **node**
 
+```bash
+node dist/app.js -s 12 -o 0.9 -t hyper -p 5
+# o sin abrebiaturas
+node dist/app.js --size 12 --opacity 0.9 --theme hyper --padding 5
+```
+
+hacegurate de tener los temas de alacritty.
