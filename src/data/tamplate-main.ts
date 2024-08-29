@@ -1,6 +1,7 @@
-const templeate = `
+export let templateConfig = `
 # Importar un tema
-import = ["~/.config/alacritty/themes/themes/aura.toml"]
+
+import = ["~/.config/alacritty/themes/themes/alacritty_0_12.toml"]
 
 [cursor]
 # Configuración del cursor
@@ -27,7 +28,7 @@ history = 50000
 
 [window]
 # Configuración de la ventana
-opacity = 0.97
+opacity = 1
 padding = { x = 5, y = 5 }
 decorations = "full"
 decorations_theme_variant = "light"
