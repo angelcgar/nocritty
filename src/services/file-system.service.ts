@@ -1,29 +1,21 @@
-import { readFile, writeFile } from "node:fs";
+import fs from "node:fs";
 import { configMainPath } from "../data/path";
 
-export function readConfig() {
-  return new Promise((resolve, reject) => {
-    readFile(configMainPath, "utf8", (err, data) => {
-      if (err) {
-        // console.error("mi error", err);
-        reject(err);
-        return;
-      }
-      // console.log(data);
-      resolve(data);
-    });
-  });
-}
+export class FileSystemConfig {
+  public readConfig() {
+    const configOfAlacritty = fs.readFileSync(configMainPath, "utf-8");
+    if (!configOfAlacritty) return "No hay configuración";
 
-export function writeConfig(data: string): Promise<void> {
-  return new Promise((resolve, reject) => {
-    writeFile(configMainPath, data, "utf-8", (err) => {
-      if (err) {
-        reject(err);
-        return;
-      }
+    return configOfAlacritty;
+  }
 
-      resolve();
-    });
-  });
+  public writeConfig(data: string) {
+    try {
+      fs.writeFileSync(configMainPath, data, "utf-8");
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
