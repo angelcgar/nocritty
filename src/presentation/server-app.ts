@@ -1,5 +1,7 @@
 import { ChangeConfigService } from "../services/change-config.service";
 
+import type { ThemeOptions } from "../types";
+
 interface RunOptions {
   size: number;
   opacity: number;
@@ -16,6 +18,11 @@ export class ServerApp {
     const readFileConfig = configService.readConfig();
     if (!readFileConfig) return;
 
-    configService.writeConfigAlacritty(size, opacity, padding, theme);
+    configService.writeConfigAlacritty(
+      size,
+      opacity,
+      padding,
+      theme as ThemeOptions
+    );
   }
 }
