@@ -6,7 +6,7 @@ import { ServerApp } from "./presentation/server-app";
 })();
 
 async function main() {
-  const { s: size, o: opacity, p: padding } = yarg;
+  const { s: size, o: opacity, p: padding, t: theme } = yarg;
 
-  ServerApp.run({ size, opacity, padding });
+  ServerApp.run({ size, opacity, padding, theme });
 }

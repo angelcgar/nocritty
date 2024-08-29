@@ -20,6 +20,12 @@ export const yarg = yargs(hideBin(process.argv))
     default: 5,
     describe: "Padding",
   })
+  .option("t", {
+    alias: "theme",
+    type: "string",
+    default: "alacritty",
+    describe: "Theme of terminal",
+  })
   .check((argv, options) => {
     if (argv.s < 1) throw "Error: base must be greater than 0";
     // if (argv.l < 1) throw "Error: base must be greater than 0";

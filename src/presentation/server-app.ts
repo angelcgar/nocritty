@@ -4,17 +4,18 @@ interface RunOptions {
   size: number;
   opacity: number;
   padding: number;
+  theme: string;
 }
 
 export class ServerApp {
-  static run({ size, opacity, padding }: RunOptions): void {
-    console.log("Server run...");
+  static run({ size, opacity, padding, theme }: RunOptions): void {
+    console.log("Aplication run...");
 
     const configService = new ChangeConfigService();
 
     const readFileConfig = configService.readConfig();
     if (!readFileConfig) return;
 
-    configService.writeConfigSize(size, opacity, padding);
+    configService.writeConfigAlacritty(size, opacity, padding, theme);
   }
 }
