@@ -1,15 +1,16 @@
 import fs from "node:fs";
-import { configMainPath } from "../data/path";
+
+import { templateConfig, configMainPath } from "../data";
 
 export class ChangeConfigService {
-  public readConfig() {
+  public readConfig(): string {
     const configOfAlacritty = fs.readFileSync(configMainPath, "utf-8");
     if (!configOfAlacritty) return "No hay configuración";
 
     return configOfAlacritty;
   }
 
-  public writeConfig(data: string) {
+  public writeConfig(data: string): boolean {
     try {
       fs.writeFileSync(configMainPath, data, "utf-8");
 
@@ -19,58 +20,39 @@ export class ChangeConfigService {
     }
   }
 
-  public writeConfigSize(size: number, opacity: number, padding: number) {
-    const configLocal = this.readConfig();
+  public newConfigAlacritty: string = templateConfig;
 
-    const indexConfig = configLocal
-      .split("\n")
-      .findIndex((v) => v.includes("size"));
+  public writeConfigAlacritty(
+    opacity: number,
+    padding: number,
+    size: number,
+    theme: string
+  ): void {
+    this.newConfigAlacritty;
 
-    let newConfig = configLocal.split("\n").at(indexConfig);
-    newConfig = `size = ${size}`;
-    console.log(newConfig);
+    this.newConfigAlacritty = templateConfig.replace(
+      /size = \d+/,
+      `size = ${size}`
+    );
 
-    const templateConfig = `
+    this.newConfigAlacritty = templateConfig.replace(
+      /opacity = \d+/,
+      `opacity = ${opacity}`
+    );
 
-    # Importar un tema
-    import = ["~/.config/alacritty/themes/themes/alacritty_0_12.toml"]
+    this.newConfigAlacritty = templateConfig.replace(
+      /padding = \{.*\}/,
+      `padding = { x = ${padding}, y = ${padding} }`
+    );
 
-    [cursor]
-    # Configuración del cursor
-    style = { shape = "Underline", blinking = "On"}
-    #unfocused_hollow = true
-    thickness = 0.2
+    this.newConfigAlacritty = templateConfig.replace(
+      /import = \[.*\]/,
+      `import = ["~/.config/alacritty/themes/themes/${theme}.toml"]`
+    );
 
-    [font]
-    # Configuración de la fuente
-    normal = { family = "UbuntuMono Nerd Font", style = "Regular" }
-    bold = { family = "UbuntuMono Nerd Font", style = "Bold" }
-    italic = { family = "UbuntuMono Nerd Font", style = "Italic" }
-    bold_italic = { family = "UbuntuMono Nerd Font", style = "Bold Italic" }
-    size = ${size}
+    this.writeConfig(this.newConfigAlacritty);
 
-    [[keyboard.bindings]]
-    # Configuración de las teclas
-    action = "ToggleFullscreen"
-    key = "F11"
-
-    [scrolling]
-    # Configuración del historial de desplazamiento
-    history = 50000
-
-    [window]
-    # Configuración de la ventana
-    opacity = ${opacity}
-    padding = { x = ${padding}, y = ${padding} }
-    decorations = "full"
-    decorations_theme_variant = "light"
-
-    # Otras configuraciones adicionales
-
-    [mouse]
-    # Ocultar el ratón al escribir
-    hide_when_typing = true`;
-
-    this.writeConfig(templateConfig);
+    // console.log(this.newConfigAlacritty);
+    console.log("Hecho");
   }
 }
