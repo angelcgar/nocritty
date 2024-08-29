@@ -1,6 +1,8 @@
 import fs from "node:fs";
 
-import { templateConfig, configMainPath } from "../data";
+import { templateConfig, configMainPath, themes } from "../data";
+
+import type { ThemeOptions } from "../types";
 
 export class ChangeConfigService {
   public readConfig(): string {
@@ -23,36 +25,28 @@ export class ChangeConfigService {
   public newConfigAlacritty: string = templateConfig;
 
   public writeConfigAlacritty(
+    size: number,
     opacity: number,
     padding: number,
-    size: number,
-    theme: string
+    theme: ThemeOptions
   ): void {
-    this.newConfigAlacritty;
+    theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
 
-    this.newConfigAlacritty = templateConfig.replace(
-      /size = \d+/,
-      `size = ${size}`
-    );
-
-    this.newConfigAlacritty = templateConfig.replace(
-      /opacity = \d+/,
-      `opacity = ${opacity}`
-    );
-
-    this.newConfigAlacritty = templateConfig.replace(
-      /padding = \{.*\}/,
-      `padding = { x = ${padding}, y = ${padding} }`
-    );
-
-    this.newConfigAlacritty = templateConfig.replace(
-      /import = \[.*\]/,
-      `import = ["~/.config/alacritty/themes/themes/${theme}.toml"]`
-    );
+    this.newConfigAlacritty = templateConfig
+      .replace(
+        /import = \[.*\]/,
+        `import = ["~/.config/alacritty/themes/themes/${themes[theme]}.toml"]`
+      )
+      .replace(
+        /padding = \{.*\}/,
+        `padding = { x = ${padding}, y = ${padding} }`
+      )
+      .replace(/size = \d+/, `size = ${size}`)
+      .replace(/opacity = \d+/, `opacity = ${opacity}`);
 
     this.writeConfig(this.newConfigAlacritty);
 
-    // console.log(this.newConfigAlacritty);
-    console.log("Hecho");
+    console.log(this.newConfigAlacritty);
+    console.log({ size, opacity, padding, theme });
   }
 }
