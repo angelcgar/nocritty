@@ -3,10 +3,10 @@ import { ChangeConfigService } from '../services/change-config.service';
 import type { ThemeOptions } from '../types';
 
 interface RunOptions {
-	size: number;
-	opacity: number;
-	padding: number;
-	theme: string;
+	size: number | undefined;
+	opacity: number | undefined;
+	padding: number | undefined;
+	theme: string | undefined;
 }
 
 export class ServerApp {
@@ -26,5 +26,5 @@ export class ServerApp {
 		);
 	}
 
-	public status = 'codeando';
+	public status = ':)';
 }

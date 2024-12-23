@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 
-import { templateConfig, configMainPath, themes } from '../data';
+import { templateConfig, configMainPath, themes, testMainPath } from '../data';
 
 import type { ThemeOptions } from '../types';
 
 export class ChangeConfigService {
 	public readConfig(): string {
-		const configOfAlacritty = fs.readFileSync(configMainPath, 'utf-8');
+		// const configOfAlacritty = fs.readFileSync(configMainPath, 'utf-8');
+		const configOfAlacritty = fs.readFileSync(testMainPath, 'utf-8');
 		if (!configOfAlacritty) return 'No hay configuración';
 
 		return configOfAlacritty;
@@ -14,7 +15,8 @@ export class ChangeConfigService {
 
 	public writeConfig(data: string): boolean {
 		try {
-			fs.writeFileSync(configMainPath, data, 'utf-8');
+			// fs.writeFileSync(configMainPath, data, 'utf-8');
+			fs.writeFileSync(testMainPath, data, 'utf-8');
 
 			return true;
 		} catch (error) {
@@ -22,31 +24,54 @@ export class ChangeConfigService {
 		}
 	}
 
-	public newConfigAlacritty: string = templateConfig;
+	public newConfigAlacritty: string | undefined;
 
 	public writeConfigAlacritty(
-		size: number,
-		opacity: number,
-		padding: number,
+		size: number | undefined,
+		opacity: number | undefined,
+		padding: number | undefined,
 		theme: ThemeOptions,
 	): void {
-		theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
+		// console.log(theme, 'theme1');
+		// theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
+		// console.log(theme, 'theme2');
 
-		this.newConfigAlacritty = templateConfig
-			.replace(
-				/import = \[.*\]/,
-				`import = ["~/.config/alacritty/themes/themes/${themes[theme]}.toml"]`,
-			)
-			.replace(
+		this.newConfigAlacritty = this.readConfig();
+		if (size) {
+			console.log(`====> size: ${size}`);
+			this.newConfigAlacritty = this.readConfig().replace(
+				/size = \d+/,
+				`size = ${size}`,
+			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
+		if (opacity || opacity === 0) {
+			console.log(`====> opacity: ${opacity}`);
+			this.newConfigAlacritty = this.readConfig().replace(
+				/opacity = (1|0(\.\d)?)/,
+				`opacity = ${opacity}`,
+			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
+		if (padding) {
+			console.log(`====> padding: ${padding}`);
+			this.newConfigAlacritty = this.readConfig().replace(
 				/padding = \{.*\}/,
 				`padding = { x = ${padding}, y = ${padding} }`,
-			)
-			.replace(/size = \d+/, `size = ${size}`)
-			.replace(/opacity = \d+/, `opacity = ${opacity}`);
+			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
+		if (theme) {
+			// todo: hacer una copia del tema anterior si no se asigna correctamente a alacritty.toml
+			console.log(`====> theme: ${theme}`);
+			this.newConfigAlacritty = this.readConfig().replace(
+				/import = \[.*\]/,
+				`import = ["~/.config/alacritty/themes/themes/${themes[theme]}.toml"]`,
+			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
 
-		this.writeConfig(this.newConfigAlacritty);
-
-		console.log(this.newConfigAlacritty);
+		// console.log(this.newConfigAlacritty);
 		console.log({ size, opacity, padding, theme });
 	}
 }

@@ -7,3 +7,5 @@ export const configMainPath = join(
 );
 
 export const templateLocal = join(homedir(), '.config/alacritty/nocritty.txt');
+
+export const testMainPath = join(__dirname, '../../alacritty.toml');

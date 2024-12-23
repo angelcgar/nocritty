@@ -1,5 +1,4 @@
-export const templateConfig = `
-# Importar un tema
+export const templateConfig = `# Importar un tema
 [general]
 
 import = ["~/.config/alacritty/themes/themes/alacritty_0_12.toml"]

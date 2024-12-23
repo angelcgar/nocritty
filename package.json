@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev": "ts-node src/app.ts -s 12 -t hyper -o 0.9 -p 6 ",
-    "dev:watch": "node --import=tsx --watch src/app.ts -b 10",
+    "dev:watch": "node --import=tsx --watch src/app.ts",
     "build": "rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js"
   },
