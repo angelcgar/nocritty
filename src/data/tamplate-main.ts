@@ -1,4 +1,4 @@
-export let templateConfig = `
+export const templateConfig = `
 # Importar un tema
 [general]
 

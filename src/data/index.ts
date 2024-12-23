@@ -1,3 +1,3 @@
-export * from "./tamplate-main";
-export * from "./path";
-export * from "./themes";
+export * from './tamplate-main';
+export * from './path';
+export * from './themes';

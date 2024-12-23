@@ -1,1 +1,1 @@
-export * from "./theme-option.type";
+export * from './theme-option.type';

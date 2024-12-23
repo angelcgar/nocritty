@@ -1,12 +1,12 @@
-import { yarg } from "./config/yargs.plugin";
-import { ServerApp } from "./presentation/server-app";
+import { yarg } from './config/yargs.plugin';
+import { ServerApp } from './presentation/server-app';
 
 (async () => {
-  await main();
+	await main();
 })();
 
 async function main() {
-  const { s: size, o: opacity, p: padding, t: theme } = yarg;
+	const { s: size, o: opacity, p: padding, t: theme } = yarg;
 
-  ServerApp.run({ size, opacity, padding, theme });
+	ServerApp.run({ size, opacity, padding, theme });
 }
