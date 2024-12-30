@@ -32,8 +32,13 @@ export class ServerApp {
 			size,
 			opacity,
 			padding,
-			theme as ThemeOptions,
-		);
+			theme: theme as ThemeOptions,
+		});
+
+		showConfigService.showAllThemes(list);
+		if (show) {
+			console.log(showConfigService.showConfig(show));
+		}
 	}
 
 	public status = ':)';

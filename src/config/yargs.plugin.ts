@@ -3,7 +3,6 @@ import { hideBin } from 'yargs/helpers';
 
 export const yarg = yargs(hideBin(process.argv))
 	.scriptName('alacritty-config-theme')
-	// todo: añadir la opcion de mostrar los temas que el usuario tiene disponible
 	.option('s', {
 		alias: 'size',
 		type: 'number',
@@ -24,11 +23,29 @@ export const yarg = yargs(hideBin(process.argv))
 		type: 'string',
 		describe: 'Theme of terminal',
 	})
+	.option('h', {
+		alias: 'help',
+		type: 'boolean',
+		describe: 'Show help',
+	})
+	// todo: manejar la excepción de que no tenga ningún tema
+	.options('l', {
+		alias: 'list',
+		type: 'boolean',
+		describe: 'List all themes available',
+	})
+	.option('S', {
+		alias: 'show',
+		type: 'boolean',
+		describe: 'Show the current configuration',
+	})
 	.check((argv, options) => {
 		if (
 			argv.s === undefined &&
 			argv.o === undefined &&
 			argv.p === undefined &&
+			argv.l === undefined &&
+			argv.S === undefined &&
 			argv.t === undefined
 		) {
 			yargs.showHelp();
