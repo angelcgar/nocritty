@@ -1,20 +1,25 @@
+import { ShowConfigService } from './../services/show-config.service';
 import { ChangeConfigService } from '../services/change-config.service';
 
 import type { ThemeOptions } from '../types';
 
 interface RunOptions {
-	size: number | undefined;
-	opacity: number | undefined;
-	padding: number | undefined;
-	theme: string | undefined;
+	size?: number;
+	opacity?: number;
+	padding?: number;
+	theme?: string;
+	list?: boolean;
+	show?: boolean;
 }
 
 export class ServerApp {
-	static run({ size, opacity, padding, theme }: RunOptions): void {
+	static run({ size, opacity, padding, theme, list, show }: RunOptions): void {
 		if (
 			size === undefined &&
 			opacity === undefined &&
 			padding === undefined &&
+			list === undefined &&
+			show === undefined &&
 			theme === undefined
 		) {
 			console.log('No arguments passed');
@@ -24,11 +29,12 @@ export class ServerApp {
 		console.log('Aplication run...');
 
 		const configService = new ChangeConfigService();
+		const showConfigService = new ShowConfigService();
 
 		const readFileConfig = configService.readConfig();
 		if (!readFileConfig) return;
 
-		configService.writeConfigAlacritty(
+		configService.writeConfigAlacritty({
 			size,
 			opacity,
 			padding,

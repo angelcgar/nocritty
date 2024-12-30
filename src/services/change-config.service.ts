@@ -1,12 +1,24 @@
 import fs from 'node:fs';
 
-import { templateConfig, configMainPath, themes, testMainPath } from '../data';
+import {
+	templateConfig,
+	mainConfigFilePath,
+	themes,
+	testMainPath,
+} from '../data';
 
 import type { ThemeOptions } from '../types';
 
+interface WriteConfigAlacritty {
+	size?: number;
+	opacity?: number;
+	padding?: number;
+	theme: ThemeOptions;
+}
+
 export class ChangeConfigService {
 	public readConfig(): string {
-		const configOfAlacritty = fs.readFileSync(configMainPath, 'utf-8');
+		const configOfAlacritty = fs.readFileSync(mainConfigFilePath, 'utf-8');
 		// const configOfAlacritty = fs.readFileSync(testMainPath, 'utf-8');
 		if (!configOfAlacritty) return 'No hay configuración';
 
@@ -15,7 +27,7 @@ export class ChangeConfigService {
 
 	public writeConfig(data: string): boolean {
 		try {
-			fs.writeFileSync(configMainPath, data, 'utf-8');
+			fs.writeFileSync(mainConfigFilePath, data, 'utf-8');
 			// fs.writeFileSync(testMainPath, data, 'utf-8');
 
 			return true;
@@ -26,12 +38,12 @@ export class ChangeConfigService {
 
 	public newConfigAlacritty: string | undefined;
 
-	public writeConfigAlacritty(
-		size: number | undefined,
-		opacity: number | undefined,
-		padding: number | undefined,
-		theme: ThemeOptions,
-	): void {
+	public writeConfigAlacritty({
+		opacity,
+		padding,
+		theme,
+		size,
+	}: WriteConfigAlacritty): void {
 		// console.log(theme, 'theme1');
 		// theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
 		// console.log(theme, 'theme2');
@@ -78,9 +90,8 @@ export class ChangeConfigService {
 			);
 			this.writeConfig(this.newConfigAlacritty);
 
+			// todo: mostrar una mejor retroalimentacion
 			console.log({ size, opacity, padding, theme });
 		}
-
-		// todo: mostrar una mejor retroalimentacion
 	}
 }
