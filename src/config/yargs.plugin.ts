@@ -2,6 +2,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 export const yarg = yargs(hideBin(process.argv))
+	// todo: cambiar la fuente de la terminal
 	.scriptName('alacritty-config-theme')
 	.option('s', {
 		alias: 'size',
@@ -28,7 +29,7 @@ export const yarg = yargs(hideBin(process.argv))
 		type: 'boolean',
 		describe: 'Show help',
 	})
-	// todo: manejar la excepción de que no tenga ningún tema
+	// todo: manejar la excepción donde no tenga ningún tema
 	.options('l', {
 		alias: 'list',
 		type: 'boolean',
