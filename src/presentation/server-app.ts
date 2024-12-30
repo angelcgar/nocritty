@@ -11,6 +11,16 @@ interface RunOptions {
 
 export class ServerApp {
 	static run({ size, opacity, padding, theme }: RunOptions): void {
+		if (
+			size === undefined &&
+			opacity === undefined &&
+			padding === undefined &&
+			theme === undefined
+		) {
+			console.log('No arguments passed');
+			return;
+		}
+
 		console.log('Aplication run...');
 
 		const configService = new ChangeConfigService();

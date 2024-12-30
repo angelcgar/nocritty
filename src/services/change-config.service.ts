@@ -37,12 +37,15 @@ export class ChangeConfigService {
 		// console.log(theme, 'theme2');
 
 		this.newConfigAlacritty = this.readConfig();
-		if (size === 0) {
-			throw 'size no debe ser 0';
+		if (size === 0 || size! < 0) {
+			console.error('Error: size must be greater than 0');
+			return;
 		}
 
 		if (size) {
-			console.log(`====> size: ${size}`);
+			size < 10
+				? console.warn('Warning: size is less than 10')
+				: console.log(`====> size: ${size}`);
 			this.newConfigAlacritty = this.readConfig().replace(
 				/size = \d+/,
 				`size = ${size}`,
@@ -66,6 +69,7 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 		if (theme) {
+			// todo: buscar el nuevo tema y manejar la excepcion si no lo encuentro
 			// todo: hacer una copia del tema anterior si no se asigna correctamente a alacritty.toml
 			console.log(`====> theme: ${theme}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -73,9 +77,10 @@ export class ChangeConfigService {
 				`import = ["~/.config/alacritty/themes/themes/${themes[theme]}.toml"]`,
 			);
 			this.writeConfig(this.newConfigAlacritty);
+
+			console.log({ size, opacity, padding, theme });
 		}
 
-		// console.log(this.newConfigAlacritty);
-		console.log({ size, opacity, padding, theme });
+		// todo: mostrar una mejor retroalimentacion
 	}
 }

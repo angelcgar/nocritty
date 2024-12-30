@@ -1,6 +1,6 @@
 {
   "name": "nocritty",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "main": "dist/app.js",
   "bin": "dist/app.js",
   "description": "CLI para cambiar el tema de la terminal alacritty",
