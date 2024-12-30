@@ -6,18 +6,27 @@ mkdir -p ~/.config/alacritty/themes
 git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/themes
 ```
 
-2. contrulle el programa
+2. Verificar si tienes instalado NodeJs con `node --version`
 
+3. Instala la herramienta de forma global en tu sistema
 ```bash
-npm run build
+npm i nocritty -g
 ```
 
-3. Despues corre el programa con **node**
+4. nocritty te ayuda configurar el tema de tu terminal alacritty, usa help para
+empezar
 
 ```bash
-node dist/app.js -s 12 -o 0.9 -t hyper -p 5
-# o sin abrebiaturas
-node dist/app.js --size 12 --opacity 0.9 --theme hyper --padding 5
+nocritty --help
+Opciones:
+      --version  Muestra número de versión                            [booleano]
+  -s, --size     Size of font                                           [número]
+  -o, --opacity  Opacity                                                [número]
+  -p, --padding  Padding                                                [número]
+  -t, --theme    Theme of terminal                        [cadena de caracteres]
+  -h, --help     Muestra ayuda                                        [booleano]
+  -l, --list     List all themes available                            [booleano]
+  -S, --show     Show the current configuration                       [booleano]
 ```
 
-hacegurate de tener los temas de alacritty.
+**por favor HACEGURATE de tener los temas de alacritty.**
