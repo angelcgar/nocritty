@@ -29,4 +29,4 @@ Opciones:
   -S, --show     Show the current configuration                       [booleano]
 ```
 
-**por favor HACEGURATE de tener los temas de alacritty.**
+**por favor ASEGÚRATE de tener los temas de alacritty.**
