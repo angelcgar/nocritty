@@ -6,8 +6,8 @@ import type { ThemeOptions } from '../types';
 
 export class ChangeConfigService {
 	public readConfig(): string {
-		// const configOfAlacritty = fs.readFileSync(configMainPath, 'utf-8');
-		const configOfAlacritty = fs.readFileSync(testMainPath, 'utf-8');
+		const configOfAlacritty = fs.readFileSync(configMainPath, 'utf-8');
+		// const configOfAlacritty = fs.readFileSync(testMainPath, 'utf-8');
 		if (!configOfAlacritty) return 'No hay configuración';
 
 		return configOfAlacritty;
@@ -15,8 +15,8 @@ export class ChangeConfigService {
 
 	public writeConfig(data: string): boolean {
 		try {
-			// fs.writeFileSync(configMainPath, data, 'utf-8');
-			fs.writeFileSync(testMainPath, data, 'utf-8');
+			fs.writeFileSync(configMainPath, data, 'utf-8');
+			// fs.writeFileSync(testMainPath, data, 'utf-8');
 
 			return true;
 		} catch (error) {
@@ -37,6 +37,10 @@ export class ChangeConfigService {
 		// console.log(theme, 'theme2');
 
 		this.newConfigAlacritty = this.readConfig();
+		if (size === 0) {
+			throw 'size no debe ser 0';
+		}
+
 		if (size) {
 			console.log(`====> size: ${size}`);
 			this.newConfigAlacritty = this.readConfig().replace(

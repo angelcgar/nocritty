@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 import { yarg } from './config/yargs.plugin';
 import { ServerApp } from './presentation/server-app';
 
