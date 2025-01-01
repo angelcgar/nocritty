@@ -50,7 +50,9 @@ export class ChangeConfigService {
 		font,
 		size,
 		// todo: manejar los errores con un mensaje más claro
-	}: WriteConfigAlacritty): null | 'ok' | undefined {
+	}: WriteConfigAlacritty):
+		| { error: string | undefined; result: null | 'ok' }
+		| undefined {
 		// console.log(theme, 'theme1');
 		// theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
 		// console.log(theme, 'theme2');
