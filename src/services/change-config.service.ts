@@ -1,18 +1,23 @@
 import fs from 'node:fs';
+import { exec } from 'node:child_process';
+import { promisify } from 'node:util';
 
 import {
 	templateConfig,
 	mainConfigFilePath,
 	themes,
 	testMainPath,
+	fonts,
 } from '../data';
 
 import type { ThemeOptions } from '../types';
+import type { FontOptions } from '../types/font-option.type';
 
 interface WriteConfigAlacritty {
 	size?: number;
 	opacity?: number;
 	padding?: number;
+	font?: FontOptions;
 	theme: ThemeOptions;
 }
 
@@ -42,8 +47,10 @@ export class ChangeConfigService {
 		opacity,
 		padding,
 		theme,
+		font,
 		size,
-	}: WriteConfigAlacritty): void {
+		// todo: manejar los errores con un mensaje más claro
+	}: WriteConfigAlacritty): null | 'ok' | undefined {
 		// console.log(theme, 'theme1');
 		// theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
 		// console.log(theme, 'theme2');
@@ -62,6 +69,39 @@ export class ChangeConfigService {
 				/size = \d+/,
 				`size = ${size}`,
 			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
+
+		if (!font) {
+			// todo: devolver una mejor retroalimentación para que server-app.ts pueda manejarla
+			// y que change-config.service.ts NO maneje toda la logica de la aplicacion
+			// todo: mostrar una mejor retroalimentacion para todos los cosos de error
+			console.log('Error: font must be a string');
+			for (const font in fonts) {
+				console.log(font);
+			}
+			return;
+		}
+
+		if (font) {
+			console.log(`====> font: ${font}`);
+			this.newConfigAlacritty = this.readConfig()
+				.replace(
+					/normal = \{.*\}/,
+					`normal = { family = "${fonts[font]}", style = "Regular" }`,
+				)
+				.replace(
+					/bold = \{.*\}/,
+					`bold = { family = "${fonts[font]}", style = "Bold" }`,
+				)
+				.replace(
+					/italic = \{.*\}/,
+					`italic = { family = "${fonts[font]}", style = "Italic" }`,
+				)
+				.replace(
+					/bold_italic = \{.*\}/,
+					`bold_italic = { family = "${fonts[font]}", style = "Bold Italic" }`,
+				);
 			this.writeConfig(this.newConfigAlacritty);
 		}
 		if (opacity || opacity === 0) {

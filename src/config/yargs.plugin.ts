@@ -40,6 +40,11 @@ export const yarg = yargs(hideBin(process.argv))
 		type: 'boolean',
 		describe: 'Show the current configuration',
 	})
+	.option('f', {
+		alias: 'font',
+		type: 'string',
+		describe: 'Font of terminal',
+	})
 	.check((argv, options) => {
 		if (
 			argv.s === undefined &&
@@ -47,6 +52,7 @@ export const yarg = yargs(hideBin(process.argv))
 			argv.p === undefined &&
 			argv.l === undefined &&
 			argv.S === undefined &&
+			argv.f === undefined &&
 			argv.t === undefined
 		) {
 			yargs.showHelp();

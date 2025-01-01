@@ -1,7 +1,7 @@
 import { ShowConfigService } from './../services/show-config.service';
 import { ChangeConfigService } from '../services/change-config.service';
 
-import type { ThemeOptions } from '../types';
+import type { ThemeOptions, FontOptions } from '../types';
 
 interface RunOptions {
 	size?: number;
@@ -10,16 +10,26 @@ interface RunOptions {
 	theme?: string;
 	list?: boolean;
 	show?: boolean;
+	font?: string;
 }
 
 export class ServerApp {
-	static run({ size, opacity, padding, theme, list, show }: RunOptions): void {
+	static run({
+		size,
+		opacity,
+		padding,
+		theme,
+		list,
+		show,
+		font,
+	}: RunOptions): void {
 		if (
 			size === undefined &&
 			opacity === undefined &&
 			padding === undefined &&
 			list === undefined &&
 			show === undefined &&
+			font === undefined &&
 			theme === undefined
 		) {
 			console.log('No arguments passed');
@@ -38,6 +48,7 @@ export class ServerApp {
 			size,
 			opacity,
 			padding,
+			font: font as FontOptions,
 			theme: theme as ThemeOptions,
 		});
 

@@ -1,8 +1,10 @@
 {
   "name": "nocritty",
-  "version": "2.3.1",
+  "version": "2.4.1",
   "main": "dist/app.js",
-  "bin": "dist/app.js",
+  "bin": {
+    "nocritty": "dist/app.js"
+  },
   "description": "CLI para cambiar el tema de la terminal alacritty",
   "scripts": {
     "prepare": "npm run build",
