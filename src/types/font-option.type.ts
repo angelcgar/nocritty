@@ -6,4 +6,5 @@ export type FontOptions =
 	| 'ubuntu'
 	| 'agave'
 	| 'caskaydiacove'
-	| 'newroman';
+	| 'newroman'
+	| '';

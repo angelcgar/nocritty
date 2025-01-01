@@ -1,6 +1,4 @@
 import fs from 'node:fs';
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
 
 import {
 	templateConfig,
@@ -106,6 +104,9 @@ export class ChangeConfigService {
 				);
 			this.writeConfig(this.newConfigAlacritty);
 		}
+
+		if (opacity! < 0) this.reportInvalidOption('opacity');
+
 		if (opacity || opacity === 0) {
 			console.log(`====> opacity: ${opacity}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -114,6 +115,8 @@ export class ChangeConfigService {
 			);
 			this.writeConfig(this.newConfigAlacritty);
 		}
+
+		if (padding! < 0) this.reportInvalidOption('padding');
 		if (padding) {
 			console.log(`====> padding: ${padding}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -122,13 +125,19 @@ export class ChangeConfigService {
 			);
 			this.writeConfig(this.newConfigAlacritty);
 		}
-		if (theme) {
-			// todo: buscar el nuevo tema y manejar la excepcion si no lo encuentro
-			// todo: hacer una copia del tema anterior si no se asigna correctamente a alacritty.toml
+
+		if (theme === '') this.showTheme();
+
+		const newTheme = themes[theme];
+		const themeExists = newTheme !== undefined;
+
+		if (!themeExists) this.showTheme();
+
+		if (themeExists) {
 			console.log(`====> theme: ${theme}`);
 			this.newConfigAlacritty = this.readConfig().replace(
 				/import = \[.*\]/,
-				`import = ["~/.config/alacritty/themes/themes/${themes[theme]}.toml"]`,
+				`import = ["~/.config/alacritty/themes/themes/${newTheme}.toml"]`,
 			);
 			this.writeConfig(this.newConfigAlacritty);
 
@@ -136,4 +145,28 @@ export class ChangeConfigService {
 			console.log({ size, opacity, padding, theme });
 		}
 	}
+
+	public showTheme(): void {
+		for (const theme in themes) {
+			console.log(theme);
+		}
+
+		console.log('Error: theme must be equal to a valid theme');
+		return;
+	}
+
+	public reportInvalidOption(option: string): void {
+		console.log(`Error: ${option} must be greater than 0`);
+		return;
+	}
 }
+
+// todo: guardar todo un tema por un nombre y hacignarlo en el archivo de configuración
+// console.log(
+// 	this.newConfigAlacritty
+// 		.split('\n')
+// 		.find((line) => line.includes('import'))
+// 		?.split('/')
+// 		.at(-1)
+// 		?.replace('.toml"]', ''),
+// );

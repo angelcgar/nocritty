@@ -112,4 +112,5 @@ export type ThemeOptions =
 	| 'ubuntu'
 	| 'wombat'
 	| 'xterm'
-	| 'zenburn';
+	| 'zenburn'
+	| '';
