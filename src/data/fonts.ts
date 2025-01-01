@@ -9,4 +9,5 @@ export const fonts: Record<FontOptions, string> = {
 	jetbrains: 'JetBrainsMono NF',
 	mononoki: 'Mononoki Nerd Font',
 	ubuntu: 'UbuntuMono Nerd Font',
+	'': '',
 };

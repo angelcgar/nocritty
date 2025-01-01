@@ -115,4 +115,5 @@ export const themes: Record<ThemeOptions, string> = {
 	wombat: 'wombat',
 	xterm: 'xterm',
 	zenburn: 'zenburn',
+	'': '',
 };

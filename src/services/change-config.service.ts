@@ -47,39 +47,12 @@ export class ChangeConfigService {
 		theme,
 		font,
 		size,
-		// todo: manejar los errores con un mensaje más claro
-	}: WriteConfigAlacritty):
-		| { error: string | undefined; result: null | 'ok' }
-		| undefined {
-		// console.log(theme, 'theme1');
-		// theme = (themes[theme] as ThemeOptions) ?? themes.alacritty;
-		// console.log(theme, 'theme2');
-
-		this.newConfigAlacritty = this.readConfig();
-		if (size === 0 || size! < 0) {
-			console.error('Error: size must be greater than 0');
-			return;
-		}
-
-		if (size) {
-			size < 10
-				? console.warn('Warning: size is less than 10')
-				: console.log(`====> size: ${size}`);
-			this.newConfigAlacritty = this.readConfig().replace(
-				/size = \d+/,
-				`size = ${size}`,
-			);
-			this.writeConfig(this.newConfigAlacritty);
-		}
-
-		if (!font) {
-			// todo: devolver una mejor retroalimentación para que server-app.ts pueda manejarla
-			// y que change-config.service.ts NO maneje toda la logica de la aplicacion
-			// todo: mostrar una mejor retroalimentacion para todos los cosos de error
-			console.log('Error: font must be a string');
+	}: WriteConfigAlacritty): void {
+		if (font === '') {
 			for (const font in fonts) {
 				console.log(font);
 			}
+			console.log('Error: font must be equal to a valid font');
 			return;
 		}
 
@@ -105,7 +78,26 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		if (opacity! < 0) this.reportInvalidOption('opacity');
+		if (size! <= 0) {
+			this.reportInvalidOption('size');
+			return;
+		}
+
+		if (size) {
+			size < 10
+				? console.warn('Warning: size is less than 10')
+				: console.log(`====> size: ${size}`);
+			this.newConfigAlacritty = this.readConfig().replace(
+				/size = \d+/,
+				`size = ${size}`,
+			);
+			this.writeConfig(this.newConfigAlacritty);
+		}
+
+		if (opacity! < 0) {
+			this.reportInvalidOption('opacity');
+			return;
+		}
 
 		if (opacity || opacity === 0) {
 			console.log(`====> opacity: ${opacity}`);
@@ -116,7 +108,10 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		if (padding! < 0) this.reportInvalidOption('padding');
+		if (padding! < 0) {
+			this.reportInvalidOption('padding');
+			return;
+		}
 		if (padding) {
 			console.log(`====> padding: ${padding}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -156,8 +151,8 @@ export class ChangeConfigService {
 	}
 
 	public reportInvalidOption(option: string): void {
+		console.log('reportInvalidOption');
 		console.log(`Error: ${option} must be greater than 0`);
-		return;
 	}
 }
 
