@@ -53,9 +53,7 @@ export class ServerApp {
 		});
 
 		showConfigService.showAllThemes(list);
-		if (show) {
-			console.log(showConfigService.showConfig(show));
-		}
+		console.log(showConfigService.showConfig(show));
 	}
 
 	public status = ':)';

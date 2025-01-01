@@ -4,7 +4,8 @@ import path from 'node:path';
 import { mainConfigFilePath, alacrittyThemesDir, themes } from '../data';
 
 export class ShowConfigService {
-	public showConfig(show: boolean): string {
+	public showConfig(show?: boolean): string {
+		if (!show) return '';
 		const configOfAlacritty = fs.readFileSync(mainConfigFilePath, 'utf-8');
 		if (!configOfAlacritty) return 'No hay configuración';
 
