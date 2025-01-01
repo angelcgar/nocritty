@@ -131,8 +131,7 @@ export class ChangeConfigService {
 		const newTheme = themes[theme];
 		const themeExists = newTheme !== undefined;
 
-		if (!themeExists) this.showTheme();
-
+		if (newTheme === undefined && theme) this.showTheme();
 		if (themeExists) {
 			console.log(`====> theme: ${theme}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -147,6 +146,7 @@ export class ChangeConfigService {
 	}
 
 	public showTheme(): void {
+		console.log('showTheme');
 		for (const theme in themes) {
 			console.log(theme);
 		}
