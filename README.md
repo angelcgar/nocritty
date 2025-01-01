@@ -13,7 +13,7 @@ git clone https://github.com/alacritty/alacritty-theme ~/.config/alacritty/theme
 npm i nocritty -g
 ```
 
-4. nocritty te ayuda configurar el tema de tu terminal alacritty, usa help para
+4. nocritty te ayuda configurar el tema de tu terminal alacritty, usa --help para
 empezar
 
 ```bash

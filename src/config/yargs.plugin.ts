@@ -2,7 +2,7 @@ import yargs from 'yargs';
 import { hideBin } from 'yargs/helpers';
 
 export const yarg = yargs(hideBin(process.argv))
-	// todo: cambiar la fuente de la terminal
+	// todo: ordenar las opciones
 	.scriptName('alacritty-config-theme')
 	.option('s', {
 		alias: 'size',

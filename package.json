@@ -1,6 +1,6 @@
 {
   "name": "nocritty",
-  "version": "2.5.1",
+  "version": "2.5.2",
   "main": "dist/app.js",
   "bin": {
     "nocritty": "dist/app.js"
