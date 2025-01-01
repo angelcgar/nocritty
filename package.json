@@ -1,7 +1,11 @@
 {
   "name": "nocritty",
-  "version": "2.5.2",
+  "version": "2.5.3",
   "main": "dist/app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/angelcgar/nocritty"
+  },
   "bin": {
     "nocritty": "dist/app.js"
   },
