@@ -4,34 +4,23 @@ import path from 'node:path';
 import { mainConfigFilePath, alacrittyThemesDir, themes } from '../data';
 
 export class ShowConfigService {
-	public showConfig(show?: boolean): string {
-		if (!show) return '';
-		const configOfAlacritty = fs.readFileSync(mainConfigFilePath, 'utf-8');
-		if (!configOfAlacritty) return 'No hay configuración';
+	public showConfig(show: boolean): string | undefined {
+		try {
+			const configOfAlacritty = fs.readFileSync(mainConfigFilePath, 'utf-8');
 
-		return configOfAlacritty;
+			return configOfAlacritty;
+		} catch (error) {
+			console.log('No hay configuración');
+
+			return;
+		}
 	}
 
-	public showAllThemes(list?: boolean): void {
-		if (!list) return;
+	public showAllThemes(list: boolean): void {
+		console.log('\nListando todos los temas');
 
-		for (const theme in themes) {
-			// if (Object.prototype.hasOwnProperty.call(themes, theme)) {
-			// const element = themes[theme];
-			console.log(theme);
-			// }
-		}
+		Object.entries(themes).map(([key, value], i) => console.log(i + 1, key));
 
-		//* esto lee todos los temas instalados en el sistema
-		// const themes = fs.readdirSync(alacrittyThemesDir);
-
-		// themes
-		// 	.filter((theme) => path.extname(theme) === '.toml')
-		// 	.map((theme) => {
-		// 		return theme.replace('.toml', '');
-		// 	})
-		// 	.map((theme, i) => {
-		// 		console.log(i + 1, theme);
-		// 	});
+		console.log('Escoje un tema');
 	}
 }

@@ -9,12 +9,15 @@ describe('ChangeConfig', () => {
 		jest.resetModules();
 	});
 
+	test('Deve de crear una instancia de ChangeConfigService', () => {
+		expect(changeConfig).toBeInstanceOf(ChangeConfigService);
+	});
+
 	test('Deberia de leer el archivo de configuración', () => {
 		const configAlacritty = changeConfig.readConfig();
 		const rows = configAlacritty.split('\n').length;
 		// console.log(configAlacritty);
 
-		expect(changeConfig).toBeInstanceOf(ChangeConfigService);
 		expect(configAlacritty).toContain(
 			'import = ["~/.config/alacritty/themes/themes/',
 		);
