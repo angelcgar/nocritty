@@ -23,20 +23,7 @@ export class ServerApp {
 		show,
 		font,
 	}: RunOptions): void {
-		if (
-			size === undefined &&
-			opacity === undefined &&
-			padding === undefined &&
-			list === undefined &&
-			show === undefined &&
-			font === undefined &&
-			theme === undefined
-		) {
-			console.log('No arguments passed');
-			return;
-		}
-
-		console.log('Aplication run...');
+		console.log('alacritty-config-theme');
 
 		const configService = new ChangeConfigService();
 		const showConfigService = new ShowConfigService();
@@ -52,8 +39,12 @@ export class ServerApp {
 			theme: theme as ThemeOptions,
 		});
 
-		showConfigService.showAllThemes(list);
-		console.log(showConfigService.showConfig(show));
+		if (list) {
+			showConfigService.showAllThemes(list);
+		}
+		if (show) {
+			console.log(showConfigService.showConfig(show));
+		}
 	}
 
 	public status = ':)';

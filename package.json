@@ -1,6 +1,6 @@
 {
   "name": "nocritty",
-  "version": "2.5.3",
+  "version": "2.5.4",
   "main": "app.js",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
     "prepare": "npm run build",
     "dev": "ts-node src/app.ts -s 12 -t hyper -o 0.9 -p 6 ",
     "dev:watch": "node --import=tsx --watch src/app.ts -p -12",
-    "build": "rimraf ./dist && tsc",
+    "build": "npm run test && rimraf ./dist && tsc",
     "start": "npm run build && node dist/app.js",
     "test": "jest",
     "test:watch": "jest --watch",
