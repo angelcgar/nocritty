@@ -16,7 +16,7 @@ interface WriteConfigAlacritty {
 	opacity?: number;
 	padding?: number;
 	font?: FontOptions;
-	theme: ThemeOptions;
+	theme?: ThemeOptions;
 }
 
 export class ChangeConfigService {
@@ -60,6 +60,18 @@ export class ChangeConfigService {
 			this.showTheme();
 			return;
 		}
+		if (size! <= 0) {
+			this.reportInvalidOption('size');
+			return;
+		}
+		if (opacity! < 0) {
+			this.reportInvalidOption('opacity');
+			return;
+		}
+		if (padding! < 0) {
+			this.reportInvalidOption('padding');
+			return;
+		}
 
 		if (font) {
 			console.log(`====> font: ${font}`);
@@ -83,11 +95,6 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		if (size! <= 0) {
-			this.reportInvalidOption('size');
-			return;
-		}
-
 		if (size) {
 			size < 10
 				? console.warn('Warning: size is less than 10')
@@ -99,11 +106,6 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		if (opacity! < 0) {
-			this.reportInvalidOption('opacity');
-			return;
-		}
-
 		if (opacity || opacity === 0) {
 			console.log(`====> opacity: ${opacity}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -113,10 +115,6 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		if (padding! < 0) {
-			this.reportInvalidOption('padding');
-			return;
-		}
 		if (padding) {
 			console.log(`====> padding: ${padding}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -126,10 +124,13 @@ export class ChangeConfigService {
 			this.writeConfig(this.newConfigAlacritty);
 		}
 
-		const newTheme = themes[theme];
+		const newTheme = themes[theme!];
 		const themeExists = newTheme !== undefined;
 
-		if (newTheme === undefined && theme) this.showTheme();
+		if (!themeExists && theme) {
+			this.showTheme();
+			return;
+		}
 		if (themeExists) {
 			console.log(`====> theme: ${theme}`);
 			this.newConfigAlacritty = this.readConfig().replace(
@@ -150,7 +151,6 @@ export class ChangeConfigService {
 		}
 
 		console.log('Error: theme must be equal to a valid theme');
-		return;
 	}
 
 	public reportInvalidOption(option: string): void {
