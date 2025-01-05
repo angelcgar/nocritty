@@ -23,6 +23,7 @@ export class ChangeConfigService {
 	public readConfig(): string {
 		const configOfAlacritty = fs.readFileSync(mainConfigFilePath, 'utf-8');
 		// const configOfAlacritty = fs.readFileSync(testMainPath, 'utf-8');
+		// todo: manejar el caso donde no encuentre el archivo de configuración
 		if (!configOfAlacritty) return 'No hay configuración';
 
 		return configOfAlacritty;
@@ -53,6 +54,10 @@ export class ChangeConfigService {
 				console.log(font);
 			}
 			console.log('Error: font must be equal to a valid font');
+			return;
+		}
+		if (theme === '') {
+			this.showTheme();
 			return;
 		}
 
@@ -120,8 +125,6 @@ export class ChangeConfigService {
 			);
 			this.writeConfig(this.newConfigAlacritty);
 		}
-
-		if (theme === '') this.showTheme();
 
 		const newTheme = themes[theme];
 		const themeExists = newTheme !== undefined;
