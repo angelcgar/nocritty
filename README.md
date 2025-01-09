@@ -30,3 +30,11 @@ Opciones:
 ```
 
 **por favor ASEGÚRATE de tener los temas de alacritty.**
+
+## Usando pnpm
+
+1. Habilita pnpm usando `corepack enable pnpm`
+2. Para crear variables de entorno para pnpm, `pnpm setup`
+3. Refresca tu shell: Ejemplo con bash `source ~/.bashrc`
+4. Instala nocritty de forma global con pnpm que tiene mejor manejo de los modulos
+de node: `pnpm install nocritty --global`
